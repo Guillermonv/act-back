@@ -1,0 +1,54 @@
+openapi: 3.0.0
+info:
+  title: Example API
+  version: 1.0.0
+servers:
+- url: /
+paths:
+  /activities:
+    get:
+      operationId: GetActivities
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetActivities_200_response'
+          description: Lista de actividades con estados
+      summary: Retorna una lista de actividades
+components:
+  schemas:
+    GetActivities_200_response:
+      example:
+        activities:
+          key:
+          - date: 0006-07-18
+            status: suck
+          - date: 0006-07-18
+            status: suck
+      properties:
+        activities:
+          additionalProperties:
+            items:
+              $ref: '#/components/schemas/GetActivities_200_response_activities_value_inner'
+            type: array
+          type: object
+      type: object
+    GetActivities_200_response_activities_value_inner:
+      example:
+        date: 0006-07-18
+        status: suck
+      properties:
+        date:
+          example: 0006-07-18
+          format: date
+          type: string
+        status:
+          enum:
+          - suck
+          - fail
+          - regular
+          - accomplished
+          - excellence
+          type: string
+      type: object
