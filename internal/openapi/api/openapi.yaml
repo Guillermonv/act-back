@@ -13,35 +13,38 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GetActivities_200_response'
+                $ref: '#/components/schemas/GetActivitiesResponse'
           description: Lista de actividades con estados
       summary: Retorna una lista de actividades
 components:
   schemas:
-    GetActivities_200_response:
+    GetActivitiesResponse:
       example:
         activities:
-          key:
-          - date: 0006-07-18
-            status: suck
-          - date: 0006-07-18
-            status: suck
+        - date: 2025-01-01
+          actividad: Leer un libro
+          status: suck
+        - date: 2025-01-01
+          actividad: Leer un libro
+          status: suck
       properties:
         activities:
-          additionalProperties:
-            items:
-              $ref: '#/components/schemas/GetActivities_200_response_activities_value_inner'
-            type: array
-          type: object
+          items:
+            $ref: '#/components/schemas/Activity'
+          type: array
       type: object
-    GetActivities_200_response_activities_value_inner:
+    Activity:
       example:
-        date: 0006-07-18
+        date: 2025-01-01
+        actividad: Leer un libro
         status: suck
       properties:
         date:
-          example: 0006-07-18
+          example: 2025-01-01
           format: date
+          type: string
+        actividad:
+          example: Leer un libro
           type: string
         status:
           enum:
@@ -51,4 +54,8 @@ components:
           - accomplished
           - excellence
           type: string
+      required:
+      - actividad
+      - date
+      - status
       type: object
