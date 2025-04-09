@@ -16,6 +16,17 @@ paths:
                 $ref: '#/components/schemas/GetActivitiesResponse'
           description: Lista de actividades con estados
       summary: Retorna una lista de actividades
+  /activities/grouped:
+    get:
+      operationId: GetActivitiesGrouped
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetActivitiesGroupedResponse'
+          description: Actividades agrupadas por nombre de actividad
+      summary: Retorna las actividades agrupadas por tipo de actividad
 components:
   schemas:
     GetActivitiesResponse:
@@ -32,6 +43,22 @@ components:
           items:
             $ref: '#/components/schemas/Activity'
           type: array
+      type: object
+    GetActivitiesGroupedResponse:
+      example:
+        activities:
+          key:
+          - date: 2000-01-23
+            status: suck
+          - date: 2000-01-23
+            status: suck
+      properties:
+        activities:
+          additionalProperties:
+            items:
+              $ref: '#/components/schemas/ActivityDateStatus'
+            type: array
+          type: object
       type: object
     Activity:
       example:
@@ -56,6 +83,26 @@ components:
           type: string
       required:
       - actividad
+      - date
+      - status
+      type: object
+    ActivityDateStatus:
+      example:
+        date: 2000-01-23
+        status: suck
+      properties:
+        date:
+          format: date
+          type: string
+        status:
+          enum:
+          - suck
+          - fail
+          - regular
+          - accomplished
+          - excellence
+          type: string
+      required:
       - date
       - status
       type: object

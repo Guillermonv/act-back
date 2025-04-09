@@ -14,6 +14,19 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GetActivitiesResponse'
+
+  /activities/grouped:
+    get:
+      operationId: GetActivitiesGrouped
+      summary: Retorna las actividades agrupadas por tipo de actividad
+      responses:
+        '200':
+          description: Actividades agrupadas por nombre de actividad
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetActivitiesGroupedResponse'
+
 components:
   schemas:
     GetActivitiesResponse:
@@ -23,6 +36,16 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Activity'
+
+    GetActivitiesGroupedResponse:
+      type: object
+      properties:
+        activities:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/ActivityDateStatus'
 
     Activity:
       type: object
@@ -38,6 +61,19 @@ components:
         actividad:
           type: string
           example: "Leer un libro"
+        status:
+          type: string
+          enum: ["suck", "fail", "regular", "accomplished", "excellence"]
+
+    ActivityDateStatus:
+      type: object
+      required:
+        - date
+        - status
+      properties:
+        date:
+          type: string
+          format: date
         status:
           type: string
           enum: ["suck", "fail", "regular", "accomplished", "excellence"]

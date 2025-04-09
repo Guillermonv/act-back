@@ -79,11 +79,14 @@ All URIs are relative to *http://localhost*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *DefaultAPI* | [**GetActivities**](docs/DefaultAPI.md#getactivities) | **Get** /activities | Retorna una lista de actividades
+*DefaultAPI* | [**GetActivitiesGrouped**](docs/DefaultAPI.md#getactivitiesgrouped) | **Get** /activities/grouped | Retorna las actividades agrupadas por tipo de actividad
 
 
 ## Documentation For Models
 
  - [Activity](docs/Activity.md)
+ - [ActivityDateStatus](docs/ActivityDateStatus.md)
+ - [GetActivitiesGroupedResponse](docs/GetActivitiesGroupedResponse.md)
  - [GetActivitiesResponse](docs/GetActivitiesResponse.md)
 
 
