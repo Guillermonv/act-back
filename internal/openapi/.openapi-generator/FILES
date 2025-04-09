@@ -1,5 +1,4 @@
 .gitignore
-.openapi-generator-ignore
 .travis.yml
 README.md
 api/openapi.yaml
@@ -7,13 +6,16 @@ api_default.go
 client.go
 configuration.go
 docs/Activity.md
+docs/ActivityDateStatus.md
 docs/DefaultAPI.md
+docs/GetActivitiesGroupedResponse.md
 docs/GetActivitiesResponse.md
 git_push.sh
 go.mod
 go.sum
 model_activity.go
+model_activity_date_status.go
+model_get_activities_grouped_response.go
 model_get_activities_response.go
 response.go
-test/api_default_test.go
 utils.go
