@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+	"time"
 
 	openapi "act-back/internal/openapi"
 )
@@ -38,7 +39,15 @@ func (s *ActivityService) GetActivities() ([]openapi.Activity, error) {
 			log.Println("Error escaneando fila:", err)
 			continue
 		}
-		a.Date = rawDate // ya está en formato yyyy-mm-dd
+
+		// Convertir YYYY-MM-DD → DD-MM-YYYY
+		parsedDate, err := time.Parse("2006-01-02", rawDate)
+		if err != nil {
+			a.Date = rawDate // fallback si falla
+		} else {
+			a.Date = parsedDate.Format("02-01-2006")
+		}
+
 		activities = append(activities, a)
 	}
 
