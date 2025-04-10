@@ -3,6 +3,7 @@ package service
 import (
 	"database/sql"
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 	"time"
@@ -14,10 +15,9 @@ type ActivityService struct {
 	DB *sql.DB
 }
 
-// enableCors agrega los headers CORS a la respuesta
 func enableCors(w http.ResponseWriter) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+	w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, OPTIONS")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 }
 
@@ -39,27 +39,23 @@ func (s *ActivityService) GetActivities() ([]openapi.Activity, error) {
 			log.Println("Error escaneando fila:", err)
 			continue
 		}
-
-		// Convertir YYYY-MM-DD → DD-MM-YYYY
+		// Formato dd-mm-yyyy
 		parsedDate, err := time.Parse("2006-01-02", rawDate)
 		if err != nil {
-			a.Date = rawDate // fallback si falla
+			a.Date = rawDate
 		} else {
 			a.Date = parsedDate.Format("02-01-2006")
 		}
-
 		activities = append(activities, a)
 	}
 
 	return activities, nil
 }
 
-// HandleGetActivitiesGrouped maneja la solicitud HTTP y devuelve las actividades agrupadas
+// HandleGetActivitiesGrouped handles the HTTP request and returns grouped activities.
 func (s *ActivityService) HandleGetActivitiesGrouped(w http.ResponseWriter, r *http.Request) {
 	enableCors(w)
-
 	if r.Method == http.MethodOptions {
-		w.WriteHeader(http.StatusNoContent)
 		return
 	}
 
@@ -84,12 +80,10 @@ func (s *ActivityService) HandleGetActivitiesGrouped(w http.ResponseWriter, r *h
 	json.NewEncoder(w).Encode(resp)
 }
 
-// HandleGetActivities maneja la solicitud HTTP y devuelve la lista plana de actividades
+// HandleGetActivities handles the HTTP request and returns flat activities.
 func (s *ActivityService) HandleGetActivities(w http.ResponseWriter, r *http.Request) {
 	enableCors(w)
-
 	if r.Method == http.MethodOptions {
-		w.WriteHeader(http.StatusNoContent)
 		return
 	}
 
@@ -102,4 +96,50 @@ func (s *ActivityService) HandleGetActivities(w http.ResponseWriter, r *http.Req
 	resp := openapi.GetActivitiesResponse{Activities: activities}
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(resp)
+}
+
+// HandleUpdateActivity handles the HTTP PUT request to update an activity's status.
+func (s *ActivityService) HandleUpdateActivity(w http.ResponseWriter, r *http.Request) {
+	enableCors(w)
+	if r.Method == http.MethodOptions {
+		return
+	}
+
+	if r.Method != http.MethodPut {
+		http.Error(w, "Método no permitido", http.StatusMethodNotAllowed)
+		return
+	}
+
+	var activity openapi.Activity
+	err := json.NewDecoder(r.Body).Decode(&activity)
+	if err != nil {
+		http.Error(w, "Error de parseo JSON: "+err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	parsedDate, err := time.Parse("02-01-2006", activity.Date)
+	if err != nil {
+		http.Error(w, "Formato de fecha inválido. Se espera dd-mm-yyyy", http.StatusBadRequest)
+		return
+	}
+
+	query := `
+		UPDATE actividades
+		SET status = ?
+		WHERE fecha = ? AND actividad = ?`
+
+	res, err := s.DB.Exec(query, activity.Status, parsedDate.Format("2006-01-02"), activity.Actividad)
+	if err != nil {
+		http.Error(w, fmt.Sprintf("Error al actualizar actividad: %v", err), http.StatusInternalServerError)
+		return
+	}
+
+	affected, _ := res.RowsAffected()
+	if affected == 0 {
+		http.Error(w, "No se encontró una actividad para actualizar", http.StatusNotFound)
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
+	w.Write([]byte(`{"message": "Actividad actualizada correctamente"}`))
 }
