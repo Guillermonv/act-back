@@ -16,6 +16,26 @@ paths:
                 $ref: '#/components/schemas/GetActivitiesResponse'
           description: Lista de actividades con estados
       summary: Retorna una lista de actividades
+    put:
+      operationId: UpdateActivity
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Activity'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateActivityResponse'
+          description: Actividad insertada o actualizada correctamente
+        "400":
+          description: Error en el formato de la solicitud
+        "500":
+          description: Error interno del servidor
+      summary: Inserta o actualiza una actividad
   /activities/grouped:
     get:
       operationId: GetActivitiesGrouped
@@ -32,10 +52,10 @@ components:
     GetActivitiesResponse:
       example:
         activities:
-        - date: 2025-01-01
+        - date: 0006-07-18
           actividad: Leer un libro
           status: suck
-        - date: 2025-01-01
+        - date: 0006-07-18
           actividad: Leer un libro
           status: suck
       properties:
@@ -48,9 +68,9 @@ components:
       example:
         activities:
           key:
-          - date: 2000-01-23
+          - date: 0006-07-18
             status: suck
-          - date: 2000-01-23
+          - date: 0006-07-18
             status: suck
       properties:
         activities:
@@ -62,12 +82,12 @@ components:
       type: object
     Activity:
       example:
-        date: 2025-01-01
+        date: 0006-07-18
         actividad: Leer un libro
         status: suck
       properties:
         date:
-          example: 2025-01-01
+          example: 0006-07-18
           format: date
           type: string
         actividad:
@@ -88,10 +108,11 @@ components:
       type: object
     ActivityDateStatus:
       example:
-        date: 2000-01-23
+        date: 0006-07-18
         status: suck
       properties:
         date:
+          example: 0006-07-18
           format: date
           type: string
         status:
@@ -105,4 +126,12 @@ components:
       required:
       - date
       - status
+      type: object
+    UpdateActivityResponse:
+      example:
+        message: Actividad insertada o actualizada correctamente
+      properties:
+        message:
+          example: Actividad insertada o actualizada correctamente
+          type: string
       type: object

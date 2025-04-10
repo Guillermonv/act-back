@@ -80,6 +80,7 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *DefaultAPI* | [**GetActivities**](docs/DefaultAPI.md#getactivities) | **Get** /activities | Retorna una lista de actividades
 *DefaultAPI* | [**GetActivitiesGrouped**](docs/DefaultAPI.md#getactivitiesgrouped) | **Get** /activities/grouped | Retorna las actividades agrupadas por tipo de actividad
+*DefaultAPI* | [**UpdateActivity**](docs/DefaultAPI.md#updateactivity) | **Put** /activities | Inserta o actualiza una actividad
 
 
 ## Documentation For Models
@@ -88,6 +89,7 @@ Class | Method | HTTP request | Description
  - [ActivityDateStatus](docs/ActivityDateStatus.md)
  - [GetActivitiesGroupedResponse](docs/GetActivitiesGroupedResponse.md)
  - [GetActivitiesResponse](docs/GetActivitiesResponse.md)
+ - [UpdateActivityResponse](docs/UpdateActivityResponse.md)
 
 
 ## Documentation For Authorization
