@@ -22,7 +22,7 @@ var _ MappedNullable = &Activity{}
 // Activity struct for Activity
 type Activity struct {
 	Date string `json:"date"`
-	Actividad string `json:"actividad"`
+	Activity string `json:"activity"`
 	Status string `json:"status"`
 }
 
@@ -32,10 +32,10 @@ type _Activity Activity
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewActivity(date string, actividad string, status string) *Activity {
+func NewActivity(date string, activity string, status string) *Activity {
 	this := Activity{}
 	this.Date = date
-	this.Actividad = actividad
+	this.Activity = activity
 	this.Status = status
 	return &this
 }
@@ -72,28 +72,28 @@ func (o *Activity) SetDate(v string) {
 	o.Date = v
 }
 
-// GetActividad returns the Actividad field value
-func (o *Activity) GetActividad() string {
+// GetActivity returns the Activity field value
+func (o *Activity) GetActivity() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Actividad
+	return o.Activity
 }
 
-// GetActividadOk returns a tuple with the Actividad field value
+// GetActivityOk returns a tuple with the Activity field value
 // and a boolean to check if the value has been set.
-func (o *Activity) GetActividadOk() (*string, bool) {
+func (o *Activity) GetActivityOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Actividad, true
+	return &o.Activity, true
 }
 
-// SetActividad sets field value
-func (o *Activity) SetActividad(v string) {
-	o.Actividad = v
+// SetActivity sets field value
+func (o *Activity) SetActivity(v string) {
+	o.Activity = v
 }
 
 // GetStatus returns the Status field value
@@ -131,7 +131,7 @@ func (o Activity) MarshalJSON() ([]byte, error) {
 func (o Activity) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["date"] = o.Date
-	toSerialize["actividad"] = o.Actividad
+	toSerialize["activity"] = o.Activity
 	toSerialize["status"] = o.Status
 	return toSerialize, nil
 }
@@ -142,7 +142,7 @@ func (o *Activity) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"date",
-		"actividad",
+		"activity",
 		"status",
 	}
 

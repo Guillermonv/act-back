@@ -5,14 +5,14 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Date** | **string** |  | 
-**Actividad** | **string** |  | 
+**Activity** | **string** |  | 
 **Status** | **string** |  | 
 
 ## Methods
 
 ### NewActivity
 
-`func NewActivity(date string, actividad string, status string, ) *Activity`
+`func NewActivity(date string, activity string, status string, ) *Activity`
 
 NewActivity instantiates a new Activity object
 This constructor will assign default values to properties that have it defined,
@@ -47,24 +47,24 @@ and a boolean to check if the value has been set.
 SetDate sets Date field to given value.
 
 
-### GetActividad
+### GetActivity
 
-`func (o *Activity) GetActividad() string`
+`func (o *Activity) GetActivity() string`
 
-GetActividad returns the Actividad field if non-nil, zero value otherwise.
+GetActivity returns the Activity field if non-nil, zero value otherwise.
 
-### GetActividadOk
+### GetActivityOk
 
-`func (o *Activity) GetActividadOk() (*string, bool)`
+`func (o *Activity) GetActivityOk() (*string, bool)`
 
-GetActividadOk returns a tuple with the Actividad field if it's non-nil, zero value otherwise
+GetActivityOk returns a tuple with the Activity field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetActividad
+### SetActivity
 
-`func (o *Activity) SetActividad(v string)`
+`func (o *Activity) SetActivity(v string)`
 
-SetActividad sets Actividad field to given value.
+SetActivity sets Activity field to given value.
 
 
 ### GetStatus

@@ -34,7 +34,7 @@ func (s *ActivityService) GetActivities() ([]openapi.Activity, error) {
 	for rows.Next() {
 		var a openapi.Activity
 		var rawDate string
-		err := rows.Scan(&rawDate, &a.Actividad, &a.Status)
+		err := rows.Scan(&rawDate, &a.Activity, &a.Status)
 		if err != nil {
 			log.Println("Error escaneando fila:", err)
 			continue
@@ -72,7 +72,7 @@ func (s *ActivityService) HandleGetActivitiesGrouped(w http.ResponseWriter, r *h
 			Date:   activity.Date,
 			Status: activity.Status,
 		}
-		grouped[activity.Actividad] = append(grouped[activity.Actividad], entry)
+		grouped[activity.Activity] = append(grouped[activity.Activity], entry)
 	}
 
 	resp := openapi.GetActivitiesGroupedResponse{Activities: &grouped}
@@ -117,24 +117,26 @@ func (s *ActivityService) HandleUpdateActivity(w http.ResponseWriter, r *http.Re
 		return
 	}
 
-	parsedDate, err := time.Parse("02-01-2006", activity.Date)
-	if err != nil {
-		http.Error(w, "Formato de fecha inválido. Se espera dd-mm-yyyy", http.StatusBadRequest)
-		return
-	}
+	// (Opcional) Debug: imprimir lo recibido
+	fmt.Printf("Update: actividad=%s, fecha=%s, status=%s\n", activity.Activity, activity.Date, activity.Status)
 
 	query := `
 		UPDATE actividades
 		SET status = ?
 		WHERE fecha = ? AND actividad = ?`
 
-	res, err := s.DB.Exec(query, activity.Status, parsedDate.Format("2006-01-02"), activity.Actividad)
+	res, err := s.DB.Exec(query, activity.Status, activity.Date, activity.Activity)
 	if err != nil {
 		http.Error(w, fmt.Sprintf("Error al actualizar actividad: %v", err), http.StatusInternalServerError)
 		return
 	}
 
-	affected, _ := res.RowsAffected()
+	affected, err := res.RowsAffected()
+	if err != nil {
+		http.Error(w, "No se pudo determinar si se actualizó la actividad", http.StatusInternalServerError)
+		return
+	}
+
 	if affected == 0 {
 		http.Error(w, "No se encontró una actividad para actualizar", http.StatusNotFound)
 		return

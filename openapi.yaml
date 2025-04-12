@@ -72,14 +72,14 @@ components:
       type: object
       required:
         - date
-        - actividad
+        - activity
         - status
       properties:
         date:
           type: string
           format: date
           example: "01-01-2025" # dd-mm-yyyy en respuesta
-        actividad:
+        activity:
           type: string
           example: "Leer un libro"
         status:
