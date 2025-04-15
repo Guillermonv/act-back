@@ -145,3 +145,71 @@ func (s *ActivityService) HandleUpdateActivity(w http.ResponseWriter, r *http.Re
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte(`{"message": "Actividad actualizada correctamente"}`))
 }
+
+// HandlePopulateActivities inserta filas desde el 1 de enero del año actual hasta hoy para cada actividad distinta si no existen.
+// HandlePopulateActivities inserta filas desde el 1 de enero del año actual hasta hoy para cada actividad si no existen.
+func (s *ActivityService) HandlePopulateActivities(w http.ResponseWriter, r *http.Request) {
+	enableCors(w)
+	if r.Method == http.MethodOptions {
+		return
+	}
+
+	if r.Method != http.MethodPost {
+		http.Error(w, "Método no permitido", http.StatusMethodNotAllowed)
+		return
+	}
+
+	// Obtener actividades distintas
+	rows, err := s.DB.Query("SELECT DISTINCT actividad FROM actividades")
+	if err != nil {
+		http.Error(w, "Error al obtener actividades: "+err.Error(), http.StatusInternalServerError)
+		return
+	}
+	defer rows.Close()
+
+	var actividades []string
+	for rows.Next() {
+		var act string
+		if err := rows.Scan(&act); err == nil {
+			actividades = append(actividades, act)
+		}
+	}
+
+	// Fechas desde el 1 de enero del año actual hasta hoy
+	currentYear := time.Now().Year()
+	today := time.Now()
+
+	// El timezone debe ser local, no UTC, para evitar desfasajes
+	location := time.Now().Location()
+	startDate := time.Date(currentYear, 1, 1, 0, 0, 0, 0, location)
+
+	inserted := 0
+
+	for _, act := range actividades {
+		for d := startDate; !d.After(today); d = d.AddDate(0, 0, 1) {
+			fechaFormateada := d.Format("02-01-2006") // dd-mm-yyyy
+
+			var count int
+			err := s.DB.QueryRow("SELECT COUNT(*) FROM actividades WHERE fecha = ? AND actividad = ?", fechaFormateada, act).Scan(&count)
+			if err != nil {
+				log.Printf("Error consultando existencia: %s - %s: %v", fechaFormateada, act, err)
+				continue
+			}
+
+			if count == 0 {
+				_, err := s.DB.Exec("INSERT INTO actividades (fecha, actividad, status) VALUES (?, ?, '')", fechaFormateada, act)
+				if err != nil {
+					log.Printf("Error insertando fila: %s - %s: %v", fechaFormateada, act, err)
+					continue
+				}
+				log.Printf("Insertado: %s - %s", fechaFormateada, act)
+				inserted++
+			}
+		}
+	}
+
+	msg := fmt.Sprintf("Población completada. Se insertaron %d nuevas filas.", inserted)
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusCreated)
+	json.NewEncoder(w).Encode(map[string]string{"message": msg})
+}

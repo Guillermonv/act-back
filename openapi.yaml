@@ -48,6 +48,24 @@ paths:
               schema:
                 $ref: '#/components/schemas/GetActivitiesGroupedResponse'
 
+  /activities/populate:
+    post:
+      operationId: PopulateActivities
+      summary: Rellena la tabla de actividades con fechas faltantes desde el 1 de enero hasta hoy para cada actividad distinta
+      responses:
+        '201':
+          description: Actividades pobladas exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Actividades pobladas exitosamente"
+        '500':
+          description: Error al poblar actividades
+
 components:
   schemas:
     GetActivitiesResponse:
