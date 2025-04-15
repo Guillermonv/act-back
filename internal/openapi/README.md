@@ -80,6 +80,7 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *DefaultAPI* | [**GetActivities**](docs/DefaultAPI.md#getactivities) | **Get** /activities | Retorna una lista de actividades
 *DefaultAPI* | [**GetActivitiesGrouped**](docs/DefaultAPI.md#getactivitiesgrouped) | **Get** /activities/grouped | Retorna las actividades agrupadas por tipo de actividad
+*DefaultAPI* | [**PopulateActivities**](docs/DefaultAPI.md#populateactivities) | **Post** /activities/populate | Rellena la tabla de actividades con fechas faltantes desde el 1 de enero hasta hoy para cada actividad distinta
 *DefaultAPI* | [**UpdateActivity**](docs/DefaultAPI.md#updateactivity) | **Put** /activities | Inserta o actualiza una actividad
 
 
@@ -89,6 +90,7 @@ Class | Method | HTTP request | Description
  - [ActivityDateStatus](docs/ActivityDateStatus.md)
  - [GetActivitiesGroupedResponse](docs/GetActivitiesGroupedResponse.md)
  - [GetActivitiesResponse](docs/GetActivitiesResponse.md)
+ - [PopulateActivities201Response](docs/PopulateActivities201Response.md)
  - [UpdateActivityResponse](docs/UpdateActivityResponse.md)
 
 

@@ -47,6 +47,20 @@ paths:
                 $ref: '#/components/schemas/GetActivitiesGroupedResponse'
           description: Actividades agrupadas por nombre de actividad
       summary: Retorna las actividades agrupadas por tipo de actividad
+  /activities/populate:
+    post:
+      operationId: PopulateActivities
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PopulateActivities_201_response'
+          description: Actividades pobladas exitosamente
+        "500":
+          description: Error al poblar actividades
+      summary: Rellena la tabla de actividades con fechas faltantes desde el 1 de
+        enero hasta hoy para cada actividad distinta
 components:
   schemas:
     GetActivitiesResponse:
@@ -133,5 +147,13 @@ components:
       properties:
         message:
           example: Actividad insertada o actualizada correctamente
+          type: string
+      type: object
+    PopulateActivities_201_response:
+      example:
+        message: Actividades pobladas exitosamente
+      properties:
+        message:
+          example: Actividades pobladas exitosamente
           type: string
       type: object

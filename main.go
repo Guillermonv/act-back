@@ -21,6 +21,7 @@ func main() {
 	http.HandleFunc("/activities", s.HandleGetActivities)
 	http.HandleFunc("/activities/grouped", s.HandleGetActivitiesGrouped)
 	http.HandleFunc("/activities/update", s.HandleUpdateActivity) // o método PUT en /activities si preferís
+	http.HandleFunc("/activities/populate", s.HandlePopulateActivities)
 
 	// fallback para rutas no existentes
 
