@@ -177,7 +177,7 @@ func (s *ActivityService) HandlePopulateActivities(w http.ResponseWriter, r *htt
 
 	// Fechas desde el 1 de enero del año actual hasta hoy
 	currentYear := time.Now().Year()
-	today := time.Now()
+	today := time.Now().AddDate(0, 0, 1)
 
 	// El timezone debe ser local, no UTC, para evitar desfasajes
 	location := time.Now().Location()
