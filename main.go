@@ -1,11 +1,10 @@
 package main
 
 import (
+	"act-back/internal/services"
 	"database/sql"
 	"log"
 	"net/http"
-
-	"act-back/internal/service"
 
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -16,14 +15,16 @@ func main() {
 		log.Fatal("Error conectando a la base de datos:", err)
 	}
 
-	s := &service.ActivityService{DB: db}
+	activityService := &services.ActivityService{DB: db}
+	weightService := &services.WeightService{DB: db}
 
-	http.HandleFunc("/activities", s.HandleGetActivities)
-	http.HandleFunc("/activities/grouped", s.HandleGetActivitiesGrouped)
-	http.HandleFunc("/activities/update", s.HandleUpdateActivity) // o método PUT en /activities si preferís
-	http.HandleFunc("/activities/populate", s.HandlePopulateActivities)
+	http.HandleFunc("/activities", activityService.HandleGetActivities)
+	http.HandleFunc("/activities/grouped", activityService.HandleGetActivitiesGrouped)
+	http.HandleFunc("/activities/update", activityService.HandleUpdateActivity)
+	http.HandleFunc("/activities/populate", activityService.HandlePopulateActivities)
 
-	// fallback para rutas no existentes
+	http.HandleFunc("/weights/list", weightService.HandleGetWeightsList)
+	http.HandleFunc("/weights/add", weightService.HandleAddWeight)
 
 	log.Println("Servidor escuchando en http://localhost:8080")
 	log.Fatal(http.ListenAndServe(":8080", nil))

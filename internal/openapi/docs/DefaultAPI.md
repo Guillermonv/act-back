@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**GetActivities**](DefaultAPI.md#GetActivities) | **Get** /activities | Retorna una lista de actividades
 [**GetActivitiesGrouped**](DefaultAPI.md#GetActivitiesGrouped) | **Get** /activities/grouped | Retorna las actividades agrupadas por tipo de actividad
+[**GetWeightsList**](DefaultAPI.md#GetWeightsList) | **Get** /weight/list | Retorna la lista de pesos agrupados por tipo
 [**PopulateActivities**](DefaultAPI.md#PopulateActivities) | **Post** /activities/populate | Rellena la tabla de actividades con fechas faltantes desde el 1 de enero hasta hoy para cada actividad distinta
 [**UpdateActivity**](DefaultAPI.md#UpdateActivity) | **Put** /activities | Inserta o actualiza una actividad
 
@@ -114,6 +115,65 @@ Other parameters are passed through a pointer to a apiGetActivitiesGroupedReques
 ### Return type
 
 [**GetActivitiesGroupedResponse**](GetActivitiesGroupedResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetWeightsList
+
+> GetWeightsListResponse GetWeightsList(ctx).Execute()
+
+Retorna la lista de pesos agrupados por tipo
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.DefaultAPI.GetWeightsList(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DefaultAPI.GetWeightsList``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetWeightsList`: GetWeightsListResponse
+	fmt.Fprintf(os.Stdout, "Response from `DefaultAPI.GetWeightsList`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetWeightsListRequest struct via the builder pattern
+
+
+### Return type
+
+[**GetWeightsListResponse**](GetWeightsListResponse.md)
 
 ### Authorization
 

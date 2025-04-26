@@ -66,6 +66,19 @@ paths:
         '500':
           description: Error al poblar actividades
 
+  /weight/list:
+    get:
+      operationId: GetWeightsList
+      summary: Retorna la lista de pesos agrupados por tipo
+      responses:
+        '200':
+          description: Lista de pesos agrupados por tipo
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetWeightsListResponse'
+                
+
 components:
   schemas:
     GetActivitiesResponse:
@@ -96,7 +109,7 @@ components:
         date:
           type: string
           format: date
-          example: "01-01-2025" # dd-mm-yyyy en respuesta
+          example: "01-01-2025"
         activity:
           type: string
           example: "Leer un libro"
@@ -124,3 +137,30 @@ components:
         message:
           type: string
           example: "Actividad insertada o actualizada correctamente"
+
+    GetWeightsListResponse:
+      type: object
+      properties:
+        ideal:
+          type: array
+          items:
+            $ref: '#/components/schemas/WeightEntry'
+        current:
+          type: array
+          items:
+            $ref: '#/components/schemas/WeightEntry'
+
+    WeightEntry:
+      type: object
+      required:
+        - weight
+        - date
+      properties:
+        weight:
+          type: number
+          format: double
+          example: 84.5
+        date:
+          type: string
+          format: date
+          example: "2025-01-01"

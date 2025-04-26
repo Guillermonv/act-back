@@ -61,6 +61,17 @@ paths:
           description: Error al poblar actividades
       summary: Rellena la tabla de actividades con fechas faltantes desde el 1 de
         enero hasta hoy para cada actividad distinta
+  /weight/list:
+    get:
+      operationId: GetWeightsList
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetWeightsListResponse'
+          description: Lista de pesos agrupados por tipo
+      summary: Retorna la lista de pesos agrupados por tipo
 components:
   schemas:
     GetActivitiesResponse:
@@ -148,6 +159,45 @@ components:
         message:
           example: Actividad insertada o actualizada correctamente
           type: string
+      type: object
+    GetWeightsListResponse:
+      example:
+        current:
+        - date: 2025-01-01
+          weight: 84.5
+        - date: 2025-01-01
+          weight: 84.5
+        ideal:
+        - date: 2025-01-01
+          weight: 84.5
+        - date: 2025-01-01
+          weight: 84.5
+      properties:
+        ideal:
+          items:
+            $ref: '#/components/schemas/WeightEntry'
+          type: array
+        current:
+          items:
+            $ref: '#/components/schemas/WeightEntry'
+          type: array
+      type: object
+    WeightEntry:
+      example:
+        date: 2025-01-01
+        weight: 84.5
+      properties:
+        weight:
+          example: 84.5
+          format: double
+          type: number
+        date:
+          example: 2025-01-01
+          format: date
+          type: string
+      required:
+      - date
+      - weight
       type: object
     PopulateActivities_201_response:
       example:
