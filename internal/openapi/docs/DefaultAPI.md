@@ -4,12 +4,78 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**AddWeight**](DefaultAPI.md#AddWeight) | **Put** /weight/add | Inserta o actualiza un peso (type: actual)
 [**GetActivities**](DefaultAPI.md#GetActivities) | **Get** /activities | Retorna una lista de actividades
 [**GetActivitiesGrouped**](DefaultAPI.md#GetActivitiesGrouped) | **Get** /activities/grouped | Retorna las actividades agrupadas por tipo de actividad
 [**GetWeightsList**](DefaultAPI.md#GetWeightsList) | **Get** /weight/list | Retorna la lista de pesos agrupados por tipo
 [**PopulateActivities**](DefaultAPI.md#PopulateActivities) | **Post** /activities/populate | Rellena la tabla de actividades con fechas faltantes desde el 1 de enero hasta hoy para cada actividad distinta
 [**UpdateActivity**](DefaultAPI.md#UpdateActivity) | **Put** /activities | Inserta o actualiza una actividad
 
+
+
+## AddWeight
+
+> UpdateWeightResponse AddWeight(ctx).AddWeightRequest(addWeightRequest).Execute()
+
+Inserta o actualiza un peso (type: actual)
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+    "time"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+)
+
+func main() {
+	addWeightRequest := *openapiclient.NewAddWeightRequest(time.Now(), float64(1231)) // AddWeightRequest | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.DefaultAPI.AddWeight(context.Background()).AddWeightRequest(addWeightRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DefaultAPI.AddWeight``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `AddWeight`: UpdateWeightResponse
+	fmt.Fprintf(os.Stdout, "Response from `DefaultAPI.AddWeight`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiAddWeightRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **addWeightRequest** | [**AddWeightRequest**](AddWeightRequest.md) |  | 
+
+### Return type
+
+[**UpdateWeightResponse**](UpdateWeightResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## GetActivities

@@ -72,6 +72,27 @@ paths:
                 $ref: '#/components/schemas/GetWeightsListResponse'
           description: Lista de pesos agrupados por tipo
       summary: Retorna la lista de pesos agrupados por tipo
+  /weight/add:
+    put:
+      operationId: AddWeight
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddWeightRequest'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateWeightResponse'
+          description: Peso insertado o actualizado correctamente
+        "400":
+          description: Error en el formato de la solicitud
+        "500":
+          description: Error interno del servidor
+      summary: "Inserta o actualiza un peso (type: actual)"
 components:
   schemas:
     GetActivitiesResponse:
@@ -198,6 +219,31 @@ components:
       required:
       - date
       - weight
+      type: object
+    AddWeightRequest:
+      example:
+        date: 2025-04-03
+        weight: 1231
+      properties:
+        date:
+          example: 2025-04-03
+          format: date
+          type: string
+        weight:
+          example: 1231
+          format: double
+          type: number
+      required:
+      - date
+      - weight
+      type: object
+    UpdateWeightResponse:
+      example:
+        message: Peso insertado o actualizado correctamente
+      properties:
+        message:
+          example: Peso insertado o actualizado correctamente
+          type: string
       type: object
     PopulateActivities_201_response:
       example:

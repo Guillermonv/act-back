@@ -77,7 +77,27 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GetWeightsListResponse'
-                
+  /weight/add:
+    put:
+      operationId: AddWeight
+      summary: "Inserta o actualiza un peso (type: actual)"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddWeightRequest'
+      responses:
+        '201':
+          description: Peso insertado o actualizado correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateWeightResponse'
+        '400':
+          description: Error en el formato de la solicitud
+        '500':
+          description: Error interno del servidor
 
 components:
   schemas:
@@ -164,3 +184,25 @@ components:
           type: string
           format: date
           example: "2025-01-01"
+
+    AddWeightRequest:
+      type: object
+      required:
+        - date
+        - weight
+      properties:
+        date:
+          type: string
+          format: date
+          example: "2025-04-03"
+        weight:
+          type: number
+          format: double
+          example: 1231
+
+    UpdateWeightResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Peso insertado o actualizado correctamente"

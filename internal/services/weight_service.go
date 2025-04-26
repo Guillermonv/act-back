@@ -49,7 +49,7 @@ func (s *WeightService) GetWeights() (map[string][]openapi.WeightEntry, error) {
 }
 
 // HandleGetWeightsList handles the HTTP request and returns weights grouped by type
-func (s *WeightService) HandleGetWeightsList(w http.ResponseWriter, r *http.Request) {
+func (s *WeightService) HandleGetWeightList(w http.ResponseWriter, r *http.Request) {
 	enableCors(w)
 	if r.Method == http.MethodOptions {
 		return
