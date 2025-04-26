@@ -10,8 +10,10 @@ docs/ActivityDateStatus.md
 docs/DefaultAPI.md
 docs/GetActivitiesGroupedResponse.md
 docs/GetActivitiesResponse.md
+docs/GetWeightsListResponse.md
 docs/PopulateActivities201Response.md
 docs/UpdateActivityResponse.md
+docs/WeightEntry.md
 git_push.sh
 go.mod
 go.sum
@@ -19,7 +21,9 @@ model_activity.go
 model_activity_date_status.go
 model_get_activities_grouped_response.go
 model_get_activities_response.go
+model_get_weights_list_response.go
 model_populate_activities_201_response.go
 model_update_activity_response.go
+model_weight_entry.go
 response.go
 utils.go
