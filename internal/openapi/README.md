@@ -78,6 +78,7 @@ All URIs are relative to *http://localhost*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*DefaultAPI* | [**AddWeight**](docs/DefaultAPI.md#addweight) | **Put** /weight/add | Inserta o actualiza un peso (type: actual)
 *DefaultAPI* | [**GetActivities**](docs/DefaultAPI.md#getactivities) | **Get** /activities | Retorna una lista de actividades
 *DefaultAPI* | [**GetActivitiesGrouped**](docs/DefaultAPI.md#getactivitiesgrouped) | **Get** /activities/grouped | Retorna las actividades agrupadas por tipo de actividad
 *DefaultAPI* | [**GetWeightsList**](docs/DefaultAPI.md#getweightslist) | **Get** /weight/list | Retorna la lista de pesos agrupados por tipo
@@ -89,11 +90,13 @@ Class | Method | HTTP request | Description
 
  - [Activity](docs/Activity.md)
  - [ActivityDateStatus](docs/ActivityDateStatus.md)
+ - [AddWeightRequest](docs/AddWeightRequest.md)
  - [GetActivitiesGroupedResponse](docs/GetActivitiesGroupedResponse.md)
  - [GetActivitiesResponse](docs/GetActivitiesResponse.md)
  - [GetWeightsListResponse](docs/GetWeightsListResponse.md)
  - [PopulateActivities201Response](docs/PopulateActivities201Response.md)
  - [UpdateActivityResponse](docs/UpdateActivityResponse.md)
+ - [UpdateWeightResponse](docs/UpdateWeightResponse.md)
  - [WeightEntry](docs/WeightEntry.md)
 
 

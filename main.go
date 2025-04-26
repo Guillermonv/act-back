@@ -23,8 +23,8 @@ func main() {
 	http.HandleFunc("/activities/update", activityService.HandleUpdateActivity)
 	http.HandleFunc("/activities/populate", activityService.HandlePopulateActivities)
 
-	http.HandleFunc("/weights/list", weightService.HandleGetWeightsList)
-	http.HandleFunc("/weights/add", weightService.HandleAddWeight)
+	http.HandleFunc("/weight/list", weightService.HandleGetWeightList)
+	http.HandleFunc("/weight/add", weightService.HandleAddWeight)
 
 	log.Println("Servidor escuchando en http://localhost:8080")
 	log.Fatal(http.ListenAndServe(":8080", nil))
