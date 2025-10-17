@@ -77,6 +77,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GetWeightsListResponse'
+
   /weight/add:
     put:
       operationId: AddWeight
@@ -96,6 +97,81 @@ paths:
                 $ref: '#/components/schemas/UpdateWeightResponse'
         '400':
           description: Error en el formato de la solicitud
+        '500':
+          description: Error interno del servidor
+
+  /task:
+    get:
+      operationId: GetTasks
+      summary: Retorna todas las tareas
+      responses:
+        '200':
+          description: Lista de tareas
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetTasksResponse'
+
+    post:
+      operationId: AddTask
+      summary: Agrega una nueva tarea
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Task'
+      responses:
+        '201':
+          description: Tarea agregada correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskResponse'
+        '400':
+          description: Error en el formato de la solicitud
+        '500':
+          description: Error interno del servidor
+
+    put:
+      operationId: UpdateTask
+      summary: Actualiza una tarea existente
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Task'
+      responses:
+        '200':
+          description: Tarea actualizada correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskResponse'
+        '400':
+          description: Error en el formato de la solicitud
+        '404':
+          description: Tarea no encontrada
+        '500':
+          description: Error interno del servidor
+
+  /task/{id}:
+    delete:
+      operationId: DeleteTask
+      summary: Elimina una tarea por ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '204':
+          description: Tarea eliminada correctamente
+        '404':
+          description: Tarea no encontrada
         '500':
           description: Error interno del servidor
 
@@ -206,3 +282,52 @@ components:
         message:
           type: string
           example: "Peso insertado o actualizado correctamente"
+
+    # ---- Task Models ----
+    Task:
+      type: object
+      required:
+        - id
+        - title
+        - status
+      properties:
+        id:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: "Inicio de proyecto"
+        message:
+          type: string
+          example: "Se definieron los objetivos y alcance del proyecto."
+        tag:
+          type: string
+          example: "completed"
+        status:
+          type: string
+          example: "completed"
+        startDate:
+          type: string
+          format: date
+          example: "2025-01-10"
+        endDate:
+          type: string
+          format: date
+          example: "2025-01-15"
+
+    GetTasksResponse:
+      type: object
+      properties:
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/Task'
+
+    TaskResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Tarea agregada o actualizada correctamente"
+        task:
+          $ref: '#/components/schemas/Task'

@@ -93,6 +93,79 @@ paths:
         "500":
           description: Error interno del servidor
       summary: "Inserta o actualiza un peso (type: actual)"
+  /task:
+    get:
+      operationId: GetTasks
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetTasksResponse'
+          description: Lista de tareas
+      summary: Retorna todas las tareas
+    post:
+      operationId: AddTask
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Task'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskResponse'
+          description: Tarea agregada correctamente
+        "400":
+          description: Error en el formato de la solicitud
+        "500":
+          description: Error interno del servidor
+      summary: Agrega una nueva tarea
+    put:
+      operationId: UpdateTask
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Task'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskResponse'
+          description: Tarea actualizada correctamente
+        "400":
+          description: Error en el formato de la solicitud
+        "404":
+          description: Tarea no encontrada
+        "500":
+          description: Error interno del servidor
+      summary: Actualiza una tarea existente
+  /task/{id}:
+    delete:
+      operationId: DeleteTask
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          example: 1
+          type: integer
+        style: simple
+      responses:
+        "204":
+          description: Tarea eliminada correctamente
+        "404":
+          description: Tarea no encontrada
+        "500":
+          description: Error interno del servidor
+      summary: Elimina una tarea por ID
 components:
   schemas:
     GetActivitiesResponse:
@@ -244,6 +317,85 @@ components:
         message:
           example: Peso insertado o actualizado correctamente
           type: string
+      type: object
+    Task:
+      example:
+        endDate: 2025-01-15
+        id: 1
+        tag: completed
+        title: Inicio de proyecto
+        message: Se definieron los objetivos y alcance del proyecto.
+        startDate: 2025-01-10
+        status: completed
+      properties:
+        id:
+          example: 1
+          type: integer
+        title:
+          example: Inicio de proyecto
+          type: string
+        message:
+          example: Se definieron los objetivos y alcance del proyecto.
+          type: string
+        tag:
+          example: completed
+          type: string
+        status:
+          example: completed
+          type: string
+        startDate:
+          example: 2025-01-10
+          format: date
+          type: string
+        endDate:
+          example: 2025-01-15
+          format: date
+          type: string
+      required:
+      - id
+      - status
+      - title
+      type: object
+    GetTasksResponse:
+      example:
+        tasks:
+        - endDate: 2025-01-15
+          id: 1
+          tag: completed
+          title: Inicio de proyecto
+          message: Se definieron los objetivos y alcance del proyecto.
+          startDate: 2025-01-10
+          status: completed
+        - endDate: 2025-01-15
+          id: 1
+          tag: completed
+          title: Inicio de proyecto
+          message: Se definieron los objetivos y alcance del proyecto.
+          startDate: 2025-01-10
+          status: completed
+      properties:
+        tasks:
+          items:
+            $ref: '#/components/schemas/Task'
+          type: array
+      type: object
+    TaskResponse:
+      example:
+        task:
+          endDate: 2025-01-15
+          id: 1
+          tag: completed
+          title: Inicio de proyecto
+          message: Se definieron los objetivos y alcance del proyecto.
+          startDate: 2025-01-10
+          status: completed
+        message: Tarea agregada o actualizada correctamente
+      properties:
+        message:
+          example: Tarea agregada o actualizada correctamente
+          type: string
+        task:
+          $ref: '#/components/schemas/Task'
       type: object
     PopulateActivities_201_response:
       example:
