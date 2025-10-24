@@ -78,12 +78,16 @@ All URIs are relative to *http://localhost*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*DefaultAPI* | [**AddTask**](docs/DefaultAPI.md#addtask) | **Post** /task | Agrega una nueva tarea
 *DefaultAPI* | [**AddWeight**](docs/DefaultAPI.md#addweight) | **Put** /weight/add | Inserta o actualiza un peso (type: actual)
+*DefaultAPI* | [**DeleteTask**](docs/DefaultAPI.md#deletetask) | **Delete** /task/{id} | Elimina una tarea por ID
 *DefaultAPI* | [**GetActivities**](docs/DefaultAPI.md#getactivities) | **Get** /activities | Retorna una lista de actividades
 *DefaultAPI* | [**GetActivitiesGrouped**](docs/DefaultAPI.md#getactivitiesgrouped) | **Get** /activities/grouped | Retorna las actividades agrupadas por tipo de actividad
+*DefaultAPI* | [**GetTasks**](docs/DefaultAPI.md#gettasks) | **Get** /task | Retorna todas las tareas
 *DefaultAPI* | [**GetWeightsList**](docs/DefaultAPI.md#getweightslist) | **Get** /weight/list | Retorna la lista de pesos agrupados por tipo
 *DefaultAPI* | [**PopulateActivities**](docs/DefaultAPI.md#populateactivities) | **Post** /activities/populate | Rellena la tabla de actividades con fechas faltantes desde el 1 de enero hasta hoy para cada actividad distinta
 *DefaultAPI* | [**UpdateActivity**](docs/DefaultAPI.md#updateactivity) | **Put** /activities | Inserta o actualiza una actividad
+*DefaultAPI* | [**UpdateTask**](docs/DefaultAPI.md#updatetask) | **Put** /task | Actualiza una tarea existente
 
 
 ## Documentation For Models
@@ -93,8 +97,11 @@ Class | Method | HTTP request | Description
  - [AddWeightRequest](docs/AddWeightRequest.md)
  - [GetActivitiesGroupedResponse](docs/GetActivitiesGroupedResponse.md)
  - [GetActivitiesResponse](docs/GetActivitiesResponse.md)
+ - [GetTasksResponse](docs/GetTasksResponse.md)
  - [GetWeightsListResponse](docs/GetWeightsListResponse.md)
  - [PopulateActivities201Response](docs/PopulateActivities201Response.md)
+ - [Task](docs/Task.md)
+ - [TaskResponse](docs/TaskResponse.md)
  - [UpdateActivityResponse](docs/UpdateActivityResponse.md)
  - [UpdateWeightResponse](docs/UpdateWeightResponse.md)
  - [WeightEntry](docs/WeightEntry.md)

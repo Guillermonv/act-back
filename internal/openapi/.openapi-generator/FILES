@@ -11,8 +11,11 @@ docs/AddWeightRequest.md
 docs/DefaultAPI.md
 docs/GetActivitiesGroupedResponse.md
 docs/GetActivitiesResponse.md
+docs/GetTasksResponse.md
 docs/GetWeightsListResponse.md
 docs/PopulateActivities201Response.md
+docs/Task.md
+docs/TaskResponse.md
 docs/UpdateActivityResponse.md
 docs/UpdateWeightResponse.md
 docs/WeightEntry.md
@@ -24,8 +27,11 @@ model_activity_date_status.go
 model_add_weight_request.go
 model_get_activities_grouped_response.go
 model_get_activities_response.go
+model_get_tasks_response.go
 model_get_weights_list_response.go
 model_populate_activities_201_response.go
+model_task.go
+model_task_response.go
 model_update_activity_response.go
 model_update_weight_response.go
 model_weight_entry.go

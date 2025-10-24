@@ -1,80 +1,80 @@
-# Weight
+# ActivityGroup
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Date** | Pointer to **string** |  | [optional] 
-**Value** | Pointer to **float32** |  | [optional] 
+**Activities** | Pointer to [**[]Activity**](Activity.md) |  | [optional] 
 
 ## Methods
 
-### NewWeight
+### NewActivityGroup
 
-`func NewWeight() *Weight`
+`func NewActivityGroup() *ActivityGroup`
 
-NewWeight instantiates a new Weight object
+NewActivityGroup instantiates a new ActivityGroup object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewWeightWithDefaults
+### NewActivityGroupWithDefaults
 
-`func NewWeightWithDefaults() *Weight`
+`func NewActivityGroupWithDefaults() *ActivityGroup`
 
-NewWeightWithDefaults instantiates a new Weight object
+NewActivityGroupWithDefaults instantiates a new ActivityGroup object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetDate
 
-`func (o *Weight) GetDate() string`
+`func (o *ActivityGroup) GetDate() string`
 
 GetDate returns the Date field if non-nil, zero value otherwise.
 
 ### GetDateOk
 
-`func (o *Weight) GetDateOk() (*string, bool)`
+`func (o *ActivityGroup) GetDateOk() (*string, bool)`
 
 GetDateOk returns a tuple with the Date field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDate
 
-`func (o *Weight) SetDate(v string)`
+`func (o *ActivityGroup) SetDate(v string)`
 
 SetDate sets Date field to given value.
 
 ### HasDate
 
-`func (o *Weight) HasDate() bool`
+`func (o *ActivityGroup) HasDate() bool`
 
 HasDate returns a boolean if a field has been set.
 
-### GetValue
+### GetActivities
 
-`func (o *Weight) GetValue() float32`
+`func (o *ActivityGroup) GetActivities() []Activity`
 
-GetValue returns the Value field if non-nil, zero value otherwise.
+GetActivities returns the Activities field if non-nil, zero value otherwise.
 
-### GetValueOk
+### GetActivitiesOk
 
-`func (o *Weight) GetValueOk() (*float32, bool)`
+`func (o *ActivityGroup) GetActivitiesOk() (*[]Activity, bool)`
 
-GetValueOk returns a tuple with the Value field if it's non-nil, zero value otherwise
+GetActivitiesOk returns a tuple with the Activities field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetValue
+### SetActivities
 
-`func (o *Weight) SetValue(v float32)`
+`func (o *ActivityGroup) SetActivities(v []Activity)`
 
-SetValue sets Value field to given value.
+SetActivities sets Activities field to given value.
 
-### HasValue
+### HasActivities
 
-`func (o *Weight) HasValue() bool`
+`func (o *ActivityGroup) HasActivities() bool`
 
-HasValue returns a boolean if a field has been set.
+HasActivities returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
